@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global style */
+.swiper-button-prev,
+.swiper-button-next {
+  color: black;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 36px;
+}
+
+@layer base {
+  :root {
+    --primary-color: #d500f9;
+  }
+}
+
+@layer components {
+  .container {
+    max-width: 1320px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
