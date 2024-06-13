@@ -1,5 +1,5 @@
 import { FilmHot } from '~/types/FilmHot'
-import FilmFiltered, { ParamsFilmFilterd } from '~/types/FilmSeries'
+import FilmFiltered, { ParamsFilmFilterd } from '~/types/FilmFiltered'
 import { Response, ResponseFilter } from '~/types/Response'
 import { http, httpFilter } from '~/utils/http'
 

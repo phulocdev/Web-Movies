@@ -40,7 +40,7 @@ export default function Carousel({ filmList }: Props) {
                   onError={({ currentTarget }) => {
                     currentTarget.onerror = null
                     currentTarget.src =
-                      'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2659&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                      'https://t4.ftcdn.net/jpg/03/01/90/79/360_F_301907970_ZVaPcSGe9rgYgRMRGUcbf91YxNwB7d2W.jpg'
                   }}
                   className='h-full w-full object-cover'
                 />
