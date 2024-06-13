@@ -1,3 +1,6 @@
+import { Episode } from './Episode'
+import Film from './Film'
+
 export interface Response<Data> {
   items: Data[]
   pagination: {
@@ -18,6 +21,15 @@ export interface ResponseFilter<Data> {
       currentPage: number
       totalPages: number
     }
-    status: boolean
+  }
+}
+
+export interface ResponseFilmDetail {
+  status: boolean
+  msg: string
+  movie: Film
+  episodes: {
+    server_name: string
+    server_data: Episode[]
   }
 }

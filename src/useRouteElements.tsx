@@ -2,8 +2,9 @@ import { createBrowserRouter } from 'react-router-dom'
 import Home from './pages/Home'
 import FilmDetail from './pages/FilmDetail'
 import MainLayout from './layouts/MainLayout'
+import NotFound from './pages/NotFound'
 
-export default function userRoutesElement() {
+export default function userRouteElements() {
   const router = createBrowserRouter([
     {
       path: '/',
@@ -14,10 +15,18 @@ export default function userRoutesElement() {
       )
     },
     {
-      path: '/film-detail',
+      path: '/films/:nameSlug',
       element: (
         <MainLayout>
           <FilmDetail />
+        </MainLayout>
+      )
+    },
+    {
+      path: '/*',
+      element: (
+        <MainLayout>
+          <NotFound />
         </MainLayout>
       )
     }

@@ -40,16 +40,16 @@ export default function Home() {
       </div>
 
       <FilmCategory Icon={<FcFilmReel size={26} color='#ff5722' />} content={'Phim bộ'} />
-      <FilmList filmList={filmSeriesListData.data?.data.data.items} isPending={filmSeriesListData.isPending} />
+      <FilmList filmList={filmSeriesListData.data?.data.data.items} />
 
       <FilmCategory Icon={<PiFilmSlateFill size={26} color='#00a152' />} content={'Phim lẻ'} />
-      <FilmList filmList={filmSingleListData.data?.data.data.items} isPending={filmSingleListData.isPending} />
+      <FilmList filmList={filmSingleListData.data?.data.data.items} />
 
       <FilmCategory Icon={<HiTv size={26} color='#00a0b2' />} content={'Tv shows'} />
-      <FilmList filmList={tvShowListData.data?.data.data.items} isPending={tvShowListData.isPending} />
+      <FilmList filmList={tvShowListData.data?.data.data.items} />
 
       <FilmCategory Icon={<SiPicartodottv size={26} color='#ffc107' />} content={'Hoạt hình'} />
-      <FilmList filmList={filmCartoonListData.data?.data.data.items} isPending={filmCartoonListData.isPending} />
+      <FilmList filmList={filmCartoonListData.data?.data.data.items} />
     </div>
   )
 }

@@ -1,6 +1,5 @@
-import { FilmHot } from '~/types/FilmHot'
-import FilmFiltered, { ParamsFilmFilterd } from '~/types/FilmFiltered'
-import { Response, ResponseFilter } from '~/types/Response'
+import { FilmFiltered, FilmHot, ParamsFilmFilterd } from '~/types/Film'
+import { Response, ResponseFilmDetail, ResponseFilter } from '~/types/Response'
 import { http, httpFilter } from '~/utils/http'
 
 const filmListApi = {
@@ -30,6 +29,10 @@ const filmListApi = {
     return httpFilter.get<ResponseFilter<FilmFiltered>>('/danh-sach/tv-shows', {
       params
     })
+  },
+
+  getFilmDetail: (slug: string) => {
+    return http.get<ResponseFilmDetail>(`/phim/${slug}`)
   }
 }
 

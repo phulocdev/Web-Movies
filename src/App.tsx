@@ -1,11 +1,10 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-
 import { RouterProvider } from 'react-router-dom'
-import userRoutesElement from './userRouteElements'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import userRouteElements from './useRouteElements'
 
 function App() {
-  const { router } = userRoutesElement()
+  const { router } = userRouteElements()
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {

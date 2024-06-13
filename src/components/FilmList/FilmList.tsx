@@ -12,11 +12,10 @@ import FilmListSkeleton from '../FilmListSkeleton'
 
 interface Props {
   filmList?: FilmFiltered[]
-  isPending: boolean
 }
 const COUNT_FILM_DEFAULT = getQuantityOfFilms(window.innerWidth)
 
-export default function FilmList({ filmList, isPending }: Props) {
+export default function FilmList({ filmList }: Props) {
   const [countFilm, setCountFilm] = useState<number>(COUNT_FILM_DEFAULT)
 
   useEffect(() => {
@@ -32,14 +31,14 @@ export default function FilmList({ filmList, isPending }: Props) {
   }
   return (
     <Swiper slidesPerView={countFilm} navigation={true} spaceBetween={30} modules={[Navigation]}>
-      {isPending ? (
-        <FilmListSkeleton quantitySkeleton={countFilm} />
-      ) : (
+      {filmList ? (
         filmList?.map((film) => (
           <SwiperSlide key={film._id}>
             <FilmCard film={film} />
           </SwiperSlide>
         ))
+      ) : (
+        <FilmListSkeleton quantitySkeleton={countFilm} />
       )}
     </Swiper>
   )

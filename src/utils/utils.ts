@@ -5,3 +5,7 @@ export const getQuantityOfFilms = (width: number) => {
   if (width >= 578) return 3
   return 2
 }
+
+export const getImageUrl = (url: string) => {
+  return `https://img.phimapi.com/${url}`
+}
