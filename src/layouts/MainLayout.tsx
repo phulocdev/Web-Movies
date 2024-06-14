@@ -10,7 +10,7 @@ export default function MainLayout({ children }: Props) {
   return (
     <div>
       <Header />
-      {children}
+      <div className='container mb-5 mt-7 min-h-screen'>{children}</div>
       <Footer />
     </div>
   )

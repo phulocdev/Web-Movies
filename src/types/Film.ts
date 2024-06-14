@@ -62,6 +62,8 @@ export type FilmFiltered = Pick<
   | 'country'
 >
 
-export interface ParamsFilmFilterd {
-  limit: number
+export interface FilmParamsConfig {
+  page?: number | string
+  limit?: number | string
+  keyword?: string
 }

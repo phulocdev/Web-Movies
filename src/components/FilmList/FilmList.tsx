@@ -7,8 +7,8 @@ import FilmCard from '../FilmCard'
 import { useEffect, useState } from 'react'
 import { throttle } from 'lodash'
 import { getQuantityOfFilms } from '~/utils/utils'
-import FilmFiltered from '~/types/FilmFiltered'
 import FilmListSkeleton from '../FilmListSkeleton'
+import { FilmFiltered } from '~/types/Film'
 
 interface Props {
   filmList?: FilmFiltered[]
@@ -32,7 +32,7 @@ export default function FilmList({ filmList }: Props) {
   return (
     <Swiper slidesPerView={countFilm} navigation={true} spaceBetween={30} modules={[Navigation]}>
       {filmList ? (
-        filmList?.map((film) => (
+        filmList.map((film) => (
           <SwiperSlide key={film._id}>
             <FilmCard film={film} />
           </SwiperSlide>

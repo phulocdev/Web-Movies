@@ -11,15 +11,17 @@ export interface Response<Data> {
   }
   status: boolean
 }
-
 export interface ResponseFilter<Data> {
   data: {
     items: Data[]
-    pagination: {
-      totalItems: number
-      totalItemsPerPage: number
-      currentPage: number
-      totalPages: number
+    titlePage: string
+    params: {
+      pagination: {
+        totalItems: number
+        totalItemsPerPage: number
+        currentPage: number
+        totalPages: number
+      }
     }
   }
 }
@@ -27,9 +29,11 @@ export interface ResponseFilter<Data> {
 export interface ResponseFilmDetail {
   status: boolean
   msg: string
-  movie: Film
-  episodes: {
-    server_name: string
-    server_data: Episode[]
-  }
+  movie: Film | ''
+  episodes: [
+    {
+      server_name: string
+      server_data: Episode[]
+    }
+  ]
 }

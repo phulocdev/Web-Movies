@@ -9,3 +9,7 @@ export const getQuantityOfFilms = (width: number) => {
 export const getImageUrl = (url: string) => {
   return `https://img.phimapi.com/${url}`
 }
+
+export const isDontNeedFilmText = (name: string) => {
+  return name === 'phim bộ' || name === 'phim lẻ' || name === 'phim hoạt hình' || name === 'tv shows'
+}
