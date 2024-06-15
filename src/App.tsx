@@ -1,24 +1,19 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { useIsFetching, useIsMutating } from '@tanstack/react-query'
 import useRouteElements from './hooks/useRouteElements'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import Loading from './components/Loading'
 
 function App() {
   const routeElements = useRouteElements()
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-        retry: false
-      }
-    }
-  })
-  // const { isFetching, isMutating } = queryClient
-
+  const isFetching = useIsFetching()
+  const isMutating = useIsMutating()
   return (
-    <QueryClientProvider client={queryClient}>
+    <div>
+      {isFetching + isMutating > 0 && <Loading />}
       {routeElements}
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+      <ToastContainer />
+    </div>
   )
 }
 

@@ -32,4 +32,7 @@
     background: -webkit-linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.4) 90%);
     background: -moz-linear-gradient(180deg, transparent 0, rgba(0, 0, 0, 0.4) 90%);
   }
+  .no-scroll {
+    overflow: hidden;
+  }
 }

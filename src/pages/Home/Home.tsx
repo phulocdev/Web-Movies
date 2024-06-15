@@ -24,14 +24,17 @@ export default function Home() {
     queryKey: ['film_series'],
     queryFn: () => filmListApi.getFilmList('danh-sach', 'phim-bo', queryConfig)
   })
+
   const filmSingleListData = useQuery({
     queryKey: ['film_single'],
     queryFn: () => filmListApi.getFilmList('danh-sach', 'phim-le', queryConfig)
   })
+
   const filmCartoonListData = useQuery({
     queryKey: ['film_cartoon'],
     queryFn: () => filmListApi.getFilmList('danh-sach', 'hoat-hinh', queryConfig)
   })
+
   const tvShowListData = useQuery({
     queryKey: ['tv_shows'],
     queryFn: () => filmListApi.getFilmList('danh-sach', 'tv-shows', queryConfig)
@@ -39,7 +42,11 @@ export default function Home() {
 
   return (
     <React.Fragment>
-      <FilmCategory Icon={<GiRainbowStar size={36} color='#00b0ff' />} content={'Phim mới cập nhật'} />
+      <FilmCategory
+        Icon={<GiRainbowStar size={36} color='#00b0ff' />}
+        content={'Phim mới cập nhật'}
+        isWatchAll={false}
+      />
       <Carousel filmList={filmHotListData.data?.data.items} />
 
       <FilmCategory Icon={<FcFilmReel size={26} color='#ff5722' />} content={'Phim bộ'} path={path.filmSeries} />

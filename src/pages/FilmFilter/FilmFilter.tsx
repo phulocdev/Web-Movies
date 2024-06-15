@@ -1,14 +1,15 @@
 import { useQuery } from '@tanstack/react-query'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import filmListApi from '~/apis/FilmList.api'
 import useQueryConfig from '~/hooks/useQueryConfig'
 import FilmCard from '~/components/FilmCard'
 import { isDontNeedFilmText } from '~/utils/utils'
+import Pagination from '~/components/Pagination'
 
 const LIMIT_FILM_PER_PAGE = 42
-
 export default function FilmFilter() {
   const queryConfig = useQueryConfig()
+  const location = useLocation()
   const { typeCategory, categorySlug } = useParams()
 
   const { data: filmFilteredData } = useQuery({
@@ -35,6 +36,13 @@ export default function FilmFilter() {
             <FilmCard film={film} />
           </div>
         ))}
+      </div>
+      <div className='mt-7'>
+        <Pagination
+          pageSize={filmFilteredData.data.data.params.pagination.totalPages}
+          path={location.pathname}
+          queryConfig={queryConfig}
+        />
       </div>
     </div>
   )

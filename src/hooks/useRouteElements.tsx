@@ -4,11 +4,13 @@ import MainLayout from '../layouts/MainLayout'
 import NotFound from '../pages/NotFound'
 import FilmFilter from '../pages/FilmFilter'
 import { useRoutes } from 'react-router-dom'
+import path from '~/constants/path'
+import SearchResult from '~/pages/SearchResult'
 
 export default function useRouteElements() {
   const router = useRoutes([
     {
-      path: '/',
+      path: path.home,
       element: (
         <MainLayout>
           <Home />
@@ -16,7 +18,7 @@ export default function useRouteElements() {
       )
     },
     {
-      path: '/films/:nameSlug',
+      path: `${path.filmDetail}/:nameSlug`,
       element: (
         <MainLayout>
           <FilmDetail />
@@ -30,6 +32,14 @@ export default function useRouteElements() {
       element: (
         <MainLayout>
           <FilmFilter />
+        </MainLayout>
+      )
+    },
+    {
+      path: path.search,
+      element: (
+        <MainLayout>
+          <SearchResult />
         </MainLayout>
       )
     },

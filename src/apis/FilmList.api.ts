@@ -15,6 +15,12 @@ const filmListApi = {
 
   getFilmDetail: (slug: string) => {
     return http.get<ResponseFilmDetail>(`/phim/${slug}`)
+  },
+
+  getFilmListByKeyword: (params: FilmParamsConfig) => {
+    return httpFilter.get<ResponseFilter<FilmFiltered>>('/tim-kiem', {
+      params
+    })
   }
 }
 

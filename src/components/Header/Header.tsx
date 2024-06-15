@@ -6,19 +6,18 @@ import { useQuery } from '@tanstack/react-query'
 import countryApi from '~/apis/Country.api'
 import categoryApi from '~/apis/Category.api'
 import { IoChevronDown } from 'react-icons/io5'
+import SearchBar from '../SearchBar'
 
 export default function Header() {
   const { data: countriesData } = useQuery({
     queryKey: ['countries'],
-    queryFn: countryApi.getAllCountries,
-    staleTime: Infinity
+    queryFn: countryApi.getAllCountries
   })
   const countryList = countriesData?.data
 
   const { data: categoriesData } = useQuery({
     queryKey: ['categories'],
-    queryFn: categoryApi.getAllCategories,
-    staleTime: Infinity
+    queryFn: categoryApi.getAllCategories
   })
   const categoryList = categoriesData?.data
 
@@ -48,12 +47,12 @@ export default function Header() {
                 <Popover
                   children={
                     <div className='flex items-center gap-x-[2px] px-3 py-2 text-base font-semibold transition-all hover:text-[#ff9800]'>
-                      <span>Thể loại</span>
+                      <span className='cursor-default'>Thể loại</span>
                       <IoChevronDown className='mt-1' />
                     </div>
                   }
                   popoverContent={
-                    <div className='grid min-w-72 grid-cols-3 rounded-sm bg-white p-3 shadow-md outline-none md:min-w-96 md:grid-cols-4'>
+                    <div className='grid grid-cols-3 rounded-sm bg-white p-3 shadow-md outline-none md:grid-cols-4'>
                       {categoryList?.map((cate, index) => (
                         <Link
                           key={index}
@@ -70,12 +69,12 @@ export default function Header() {
                 <Popover
                   children={
                     <div className='flex items-center gap-x-[2px] px-3 py-2 text-base font-semibold transition-all hover:text-[#ff9800]'>
-                      <span>Quốc gia</span>
+                      <span className='cursor-default'>Quốc gia</span>
                       <IoChevronDown className='mt-1' />
                     </div>
                   }
                   popoverContent={
-                    <div className='grid min-w-72 grid-cols-3 rounded-sm bg-white p-3 shadow-md outline-none md:min-w-96 md:grid-cols-4'>
+                    <div className='grid grid-cols-3 rounded-sm bg-white p-3 shadow-md outline-none md:grid-cols-4'>
                       {countryList?.map((country, index) => (
                         <Link
                           key={index}
@@ -88,6 +87,7 @@ export default function Header() {
                     </div>
                   }
                 />
+
                 <li>
                   <NavLink
                     to={path.filmSingle}
@@ -112,7 +112,7 @@ export default function Header() {
                 </li>
                 <li>
                   <NavLink
-                    to={'/ass'}
+                    to={path.filmFavourite}
                     className={({ isActive }) => {
                       const extendClass = isActive ? 'text-[#ff9800]' : ''
                       return `block px-3 py-2 text-base font-semibold transition-all hover:text-[#ff9800] ${extendClass}`
@@ -125,13 +125,19 @@ export default function Header() {
             </nav>
           </div>
           <div className='col-span-4 col-start-9 mt-6 lg:mt-0 lg:pr-4 xl:col-span-3 xl:pr-10'>
-            <form>
-              <input
-                type='text'
-                placeholder='Tìm kiếm...'
-                className='w-full rounded-lg border border-gray-200 px-4 py-2 shadow-sm outline-none transition-all placeholder:text-base placeholder:text-black focus:border-gray-300 focus:shadow-md focus:placeholder:text-white'
-              />
-            </form>
+            <Popover
+              children={<SearchBar />}
+              popoverContent={
+                <div className='min-h-5 w-[370px] rounded-sm bg-white p-3 shadow-md md:w-[450px]'>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. At neque quaerat quam maiores culpa sed esse
+                  quo fugiat. Est, repellat.
+                </div>
+              }
+              hasArrow={false}
+              offsetWithPopover={4}
+              arrowHeight={0}
+              triggerType='click'
+            />
           </div>
         </div>
       </div>

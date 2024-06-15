@@ -26,6 +26,7 @@ export default function FilmDetail() {
         Movie not found
       </div>
     )
+    // throw new Error('Movie not found')
   }
   return (
     <div>

@@ -1,3 +1,4 @@
+import React from 'react'
 import { TiChevronRight } from 'react-icons/ti'
 import { Link } from 'react-router-dom'
 
@@ -15,11 +16,13 @@ export default function FilmCategory({ Icon, content, path = '#!', isWatchAll = 
       <h2 className='text-base font-medium uppercase'>{content}</h2>
       <div className='ml-auto flex items-center hover:text-[#ff9800]'>
         {isWatchAll && (
-          <Link to={path} className='text-base font-medium'>
-            Xem tất cả
-          </Link>
+          <React.Fragment>
+            <Link to={path} className='text-base font-medium'>
+              Xem tất cả
+            </Link>
+            <TiChevronRight size={20} className='mt-[3px]' />
+          </React.Fragment>
         )}
-        <TiChevronRight size={20} className='mt-[3px]' />
       </div>
     </div>
   )
