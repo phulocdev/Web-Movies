@@ -60,8 +60,6 @@ export default function Popover({
   const dismiss = useDismiss(context)
   const role = useRole(context)
   const { getReferenceProps, getFloatingProps } = useInteractions([hover, dismiss, role, click])
-  console.log()
-
   return (
     <div ref={refs.setReference} {...getReferenceProps()}>
       {children}

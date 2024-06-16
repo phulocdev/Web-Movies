@@ -31,7 +31,6 @@ export default function Header() {
 
   useEffect(() => {
     const handleSearchSuccess = () => {
-      console.log('handle run')
       const cachedData = queryClient.getQueryData<{ data: ResponseFilter<FilmFiltered> }>(['film_searched_subList'])
       setFilmSearchSubList(cachedData?.data.data.items || [])
     }

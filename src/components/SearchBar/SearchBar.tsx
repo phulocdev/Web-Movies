@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { debounce } from 'lodash'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { BiSearch } from 'react-icons/bi'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -11,7 +11,6 @@ export const SearchBarEventTarget = new EventTarget()
 
 const SearchBar = () => {
   const [keyword, setKeyword] = useState<string>('')
-  const [needSearch, setNeedSearch] = useState<boolean>(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const navigate = useNavigate()
 
@@ -19,19 +18,8 @@ const SearchBar = () => {
   /// enable là TRUE mãi mãi (default of tanstack) VÀ queryKey phải thay đổi liên tục
   const searchResult = useQuery({
     queryKey: ['film_searched_subList'],
-    queryFn: () =>
-      filmListApi.getFilmListByKeyword({ keyword, limit: 5 }).finally(() => {
-        // Visualize case call API have too much time
-        // needSearch is always true but QUERY KEY not change -> query dont call again
-        // setTimeout(() => {
-        //   setNeedSearch(false)
-        // }, 20000)
-        setNeedSearch(false)
-      }),
-    enabled: needSearch && keyword.trim() !== ''
+    queryFn: () => filmListApi.getFilmListByKeyword({ keyword, limit: 5 })
   })
-
-  console.log('needSearch', needSearch)
 
   useEffect(() => {
     if (searchResult.isSuccess) {
@@ -46,11 +34,27 @@ const SearchBar = () => {
     }, 180)
   }
 
-  const handleSearchOnType = useMemo(
-    () =>
-      debounce(() => {
-        setNeedSearch(true)
-      }, 1500),
+  // Nếu ta thêm 'searchResult' là dependency của useMemo này thì:
+  // cho dù ta đã dùng debounce để hạn chế việc call API liên tục
+  // nhưng hàm 'handleSearchOnType' sẽ bị thay đổi tham chiếu
+  // cho nên nó sẽ làm mất đi tính chất quan trọng của debounce là `closures JS`
+  // cho nên khi ta gõ 'hiii' nó sẽ call lại API 4 lần  =  số kí tự của keyword
+  // cái thằng gõ i lần cuối cùng sẽ call API và làm mất đi tính chất clusures JS -> những lần gọi API
+  // của những kí tự trc đó sẽ được thực hiện lại
+  // const handleSearchOnType = useMemo(
+  //   () =>
+  //     debounce(() => {
+  //       searchResult.refetch()
+  //     }, 1500),
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   []
+  // )
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleSearchOnType = useCallback(
+    debounce(() => {
+      searchResult.refetch()
+    }, 1500),
     []
   )
 
