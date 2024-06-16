@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 export default function Footer() {
   return (
     <div
-      className='bg-no-repeate relative h-[150px] bg-cover bg-center font-semibold text-white'
+      className='bg-no-repeate relative min-h-[150px] bg-cover bg-center font-semibold text-white'
       style={{ backgroundImage: 'url(https://movies-ax.netlify.app/static/media/background.4791eb57.jpg)' }}
     >
       <div className='absolute inset-0 z-10 bg-black/65'></div>

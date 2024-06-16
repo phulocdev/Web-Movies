@@ -9,8 +9,7 @@ interface Props {
   path: string
 }
 
-const RANGE = 3
-
+const RANGE = 2
 export default function Pagination({ pageSize, queryConfig, path }: Props) {
   // current page
   const page = Number(queryConfig.page)

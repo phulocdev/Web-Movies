@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useLocation, useParams } from 'react-router-dom'
 import filmListApi from '~/apis/FilmList.api'
 import useQueryConfig from '~/hooks/useQueryConfig'
@@ -18,7 +18,8 @@ export default function FilmFilter() {
       filmListApi.getFilmList(typeCategory as string, categorySlug as string, {
         ...queryConfig,
         limit: LIMIT_FILM_PER_PAGE
-      })
+      }),
+    placeholderData: keepPreviousData
   })
   const filmFilteredList = filmFilteredData?.data.data.items
   const titlePage = filmFilteredData?.data.data.titlePage

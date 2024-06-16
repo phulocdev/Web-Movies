@@ -4,7 +4,7 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import { Navigation } from 'swiper/modules'
 import FilmCard from '../FilmCard'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { throttle } from 'lodash'
 import { getQuantityOfFilms } from '~/utils/utils'
 import FilmListSkeleton from '../FilmListSkeleton'
@@ -15,9 +15,8 @@ interface Props {
 }
 const COUNT_FILM_DEFAULT = getQuantityOfFilms(window.innerWidth)
 
-export default function FilmList({ filmList }: Props) {
+const FilmList = ({ filmList }: Props) => {
   const [countFilm, setCountFilm] = useState<number>(COUNT_FILM_DEFAULT)
-
   useEffect(() => {
     window.addEventListener('resize', throttle(handleScreenWidthChange, 500))
     return () => {
@@ -43,3 +42,5 @@ export default function FilmList({ filmList }: Props) {
     </Swiper>
   )
 }
+
+export default React.memo(FilmList)

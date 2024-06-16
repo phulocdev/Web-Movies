@@ -20,11 +20,15 @@ export default function FilmCard({ film }: Props) {
         <div className='bg-gradient absolute inset-0 z-10'></div>
         {/* Decoration */}
         <div className='absolute left-1 top-1 z-20 flex items-center gap-x-[3px]'>
-          <span className='rounded-md bg-black/55 px-2 py-1 text-[12px] text-gray-200'>{film.year}</span>
-          <span className='rounded-md bg-black/55 px-2 py-1 text-[12px] text-gray-200'>{film.quality}</span>
-          <span className='max-w-[74px] overflow-hidden truncate rounded-md bg-black/55 px-2 py-1 text-[12px] text-gray-200'>
-            {film.episode_current}
-          </span>
+          {film.year && <span className='rounded-md bg-black/55 px-2 py-1 text-[12px] text-gray-200'>{film.year}</span>}
+          {film.quality && (
+            <span className='rounded-md bg-black/55 px-2 py-1 text-[12px] text-gray-200'>{film.quality}</span>
+          )}
+          {film.episode_current && (
+            <span className='max-w-[74px] overflow-hidden truncate rounded-md bg-black/55 px-2 py-1 text-[12px] text-gray-200'>
+              {film.episode_current}
+            </span>
+          )}
         </div>
         <h2 className='absolute bottom-2 z-10 min-h-5 w-full text-center text-base font-semibold text-white'>
           {film.name}

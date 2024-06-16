@@ -1,20 +1,23 @@
 import { IoPlayCircleSharp } from 'react-icons/io5'
 import { FilmHot } from '~/types/Film'
 import Label from '../Label'
+import classNames from 'classnames'
 
 interface Props {
   film: FilmHot
   isNew?: boolean
   quality?: string
   hasFavouriteButton?: boolean
+  handleSaveFilmFavourite?: (slugFilm: string) => void
 }
 
-export default function Banner({ film, isNew, quality, hasFavouriteButton }: Props) {
+export default function Banner({ film, isNew, quality, hasFavouriteButton, handleSaveFilmFavourite }: Props) {
   return (
     <div className='relative aspect-[2/1] rounded-sm bg-neutral-100 md:aspect-[3/1]'>
       {/* Poster image */}
       <div className='bg-gradient absolute inset-0 z-10'></div>
       <img
+        loading='lazy'
         src={film.thumb_url}
         alt={film.name}
         onError={({ currentTarget }) => {
@@ -31,7 +34,15 @@ export default function Banner({ film, isNew, quality, hasFavouriteButton }: Pro
         {film.year}
       </div>
 
-      <button className='absolute bottom-10 left-10 z-20 flex items-center rounded-md bg-blue-500 px-3 py-2 text-[18px] text-white hover:bg-blue-500/80'>
+      <button
+        className={classNames(
+          'absolute bottom-10 left-10 z-20 flex items-center rounded-md bg-blue-500 px-3 py-2 text-[18px] text-white',
+          {
+            'cursor-default': hasFavouriteButton,
+            'cursor-pointer hover:bg-blue-500/80': !hasFavouriteButton
+          }
+        )}
+      >
         <IoPlayCircleSharp size={22} className='mt-[0.5px]' />
         <span className='ml-1'>Xem ngay</span>
       </button>
@@ -43,17 +54,19 @@ export default function Banner({ film, isNew, quality, hasFavouriteButton }: Pro
       )}
 
       {quality && (
-        <div className='absolute bottom-10 left-44 z-20'>
+        <div className='absolute bottom-10 left-44 z-20 cursor-default'>
           <Label content={quality} />
         </div>
       )}
 
-      {hasFavouriteButton && (
+      {hasFavouriteButton && handleSaveFilmFavourite && (
         <div className='absolute bottom-10 left-60 z-20'>
-          <Label
-            content={'Yêu thích'}
-            classNameCustom='py-[6px] border-[1.5px] text-white bg-transparent border-red-400 hover:bg-red-400 transition-all cursor-pointer'
-          />
+          <button
+            onClick={() => handleSaveFilmFavourite(film.slug)}
+            className='cursor-pointer rounded-md border-[1.5px] border-red-400 bg-transparent px-2 py-[6px] text-lg text-white transition-all hover:bg-red-400'
+          >
+            Yêu thích
+          </button>
         </div>
       )}
     </div>

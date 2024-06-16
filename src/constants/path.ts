@@ -5,7 +5,7 @@ const path = {
   filmSingle: '/filter/danh-sach/phim-le',
   filmCartoon: '/filter/danh-sach/hoat-hinh',
   tvShows: '/filter/danh-sach/tv-shows',
-  filmFavourite: '/filter/danh-sach/phim-yeu-thich',
+  filmFavourite: '/phim-yeu-thich',
   country: '/filter/quoc-gia',
   category: '/filter/the-loai',
   search: '/timkiem'

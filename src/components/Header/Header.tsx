@@ -2,24 +2,44 @@ import { Link, NavLink } from 'react-router-dom'
 import logo from '~/assets/logo.png'
 import path from '~/constants/path'
 import Popover from '../Popover'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import countryApi from '~/apis/Country.api'
 import categoryApi from '~/apis/Category.api'
 import { IoChevronDown } from 'react-icons/io5'
-import SearchBar from '../SearchBar'
+import { useEffect, useState } from 'react'
+import SearchBar, { SearchBarEventTarget } from '../SearchBar/SearchBar'
+import { ResponseFilter } from '~/types/Response'
+import { FilmFiltered } from '~/types/Film'
+import { getImageUrl } from '~/utils/utils'
 
 export default function Header() {
+  const [filmSearchSubList, setFilmSearchSubList] = useState<FilmFiltered[]>([])
+  const queryClient = useQueryClient()
+
   const { data: countriesData } = useQuery({
     queryKey: ['countries'],
     queryFn: countryApi.getAllCountries
   })
-  const countryList = countriesData?.data
 
   const { data: categoriesData } = useQuery({
     queryKey: ['categories'],
     queryFn: categoryApi.getAllCategories
   })
+
+  const countryList = countriesData?.data
   const categoryList = categoriesData?.data
+
+  useEffect(() => {
+    const handleSearchSuccess = () => {
+      console.log('handle run')
+      const cachedData = queryClient.getQueryData<{ data: ResponseFilter<FilmFiltered> }>(['film_searched_subList'])
+      setFilmSearchSubList(cachedData?.data.data.items || [])
+    }
+    SearchBarEventTarget.addEventListener('searchSuccess', handleSearchSuccess)
+    return () => {
+      SearchBarEventTarget.removeEventListener('searchSuccess', handleSearchSuccess)
+    }
+  }, [queryClient])
 
   return (
     <div className='sticky top-0 z-40 bg-neutral-50 py-4'>
@@ -27,7 +47,7 @@ export default function Header() {
         <div className='grid grid-cols-12 items-center'>
           <div className='col-span-2 xl:col-span-1'>
             <Link to={path.home}>
-              <img src={logo} alt='netflix_logo' className='h-8 w-32 object-cover' />
+              <img loading='lazy' src={logo} alt='netflix_logo' className='h-8 w-32 object-cover' />
             </Link>
           </div>
           <div className='col-span-10 lg:col-span-8 xl:col-span-8'>
@@ -128,9 +148,30 @@ export default function Header() {
             <Popover
               children={<SearchBar />}
               popoverContent={
-                <div className='min-h-5 w-[370px] rounded-sm bg-white p-3 shadow-md md:w-[450px]'>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. At neque quaerat quam maiores culpa sed esse
-                  quo fugiat. Est, repellat.
+                <div className='min-h-12 w-[290px] rounded-sm bg-white p-3 shadow-md'>
+                  {filmSearchSubList.length > 0 ? (
+                    filmSearchSubList.map((film) => (
+                      <Link
+                        key={film._id}
+                        to={`${path.filmDetail}/${film.slug}`}
+                        className='flex flex-col gap-x-2 p-1 transition-colors duration-150 hover:bg-neutral-100'
+                      >
+                        <article className='flex items-center gap-x-2'>
+                          <div className='relative aspect-[1/1] shrink-0 grow-0 basis-1/6 rounded-sm'>
+                            <img
+                              loading='lazy'
+                              src={getImageUrl(film.poster_url)}
+                              alt={film.name}
+                              className='absolute inset-0 h-full w-full rounded-sm object-cover'
+                            />
+                          </div>
+                          <h3 className='flex-grow truncate text-sm font-medium'>{film.name}</h3>
+                        </article>
+                      </Link>
+                    ))
+                  ) : (
+                    <div className='flex items-center justify-center p-2 text-base'>Empty!</div>
+                  )}
                 </div>
               }
               hasArrow={false}

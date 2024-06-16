@@ -6,22 +6,23 @@ import 'swiper/css/pagination'
 import { FilmHot } from '~/types/Film'
 import Banner from '../Banner'
 import BannerSkeleton from '../BannerSkeleton'
+import React from 'react'
 
 interface Props {
   filmList?: FilmHot[]
 }
 
-export default function Carousel({ filmList }: Props) {
+const Carousel = ({ filmList }: Props) => {
   return (
     <>
       <Swiper
         navigation={true}
         slidesPerView={1}
         speed={1000}
-        // autoplay={{
-        //   delay: 2000,
-        //   disableOnInteraction: false
-        // }}
+        autoplay={{
+          delay: 2000,
+          disableOnInteraction: false
+        }}
         loop={true}
         modules={[Navigation, Pagination, Autoplay]}
         pagination={{
@@ -41,3 +42,5 @@ export default function Carousel({ filmList }: Props) {
     </>
   )
 }
+
+export default React.memo(Carousel)

@@ -1,7 +1,5 @@
 import React from 'react'
 import { useQuery } from '@tanstack/react-query'
-import Carousel from '~/components/Carousel'
-import FilmList from '~/components/FilmList'
 import filmListApi from '~/apis/FilmList.api'
 import { GiRainbowStar } from 'react-icons/gi'
 import { FcFilmReel } from 'react-icons/fc'
@@ -11,32 +9,34 @@ import { HiTv } from 'react-icons/hi2'
 import { SiPicartodottv } from 'react-icons/si'
 import { QueryConfig } from '~/hooks/useQueryConfig'
 import path from '~/constants/path'
+import Carousel from '~/components/Carousel'
+import FilmList from '~/components/FilmList'
 
 export default function Home() {
   const queryConfig: QueryConfig = { page: '1', limit: '30' }
 
   const filmHotListData = useQuery({
-    queryKey: ['film_hot'],
+    queryKey: ['film_hot', { queryConfig }],
     queryFn: filmListApi.getHotFilms
   })
 
   const filmSeriesListData = useQuery({
-    queryKey: ['film_series'],
+    queryKey: ['film_series', { queryConfig }],
     queryFn: () => filmListApi.getFilmList('danh-sach', 'phim-bo', queryConfig)
   })
 
   const filmSingleListData = useQuery({
-    queryKey: ['film_single'],
+    queryKey: ['film_single', { queryConfig }],
     queryFn: () => filmListApi.getFilmList('danh-sach', 'phim-le', queryConfig)
   })
 
   const filmCartoonListData = useQuery({
-    queryKey: ['film_cartoon'],
+    queryKey: ['film_cartoon', { queryConfig }],
     queryFn: () => filmListApi.getFilmList('danh-sach', 'hoat-hinh', queryConfig)
   })
 
   const tvShowListData = useQuery({
-    queryKey: ['tv_shows'],
+    queryKey: ['tv_shows', { queryConfig }],
     queryFn: () => filmListApi.getFilmList('danh-sach', 'tv-shows', queryConfig)
   })
 

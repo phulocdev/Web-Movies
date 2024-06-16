@@ -9,7 +9,7 @@ interface Props {
   path?: string
 }
 
-export default function FilmCategory({ Icon, content, path = '#!', isWatchAll = true }: Props) {
+const FilmCategory = ({ Icon, content, path = '#!', isWatchAll = true }: Props) => {
   return (
     <div className='mb-2 mt-6 flex items-center gap-x-1'>
       {Icon}
@@ -27,3 +27,5 @@ export default function FilmCategory({ Icon, content, path = '#!', isWatchAll = 
     </div>
   )
 }
+
+export default React.memo(FilmCategory)

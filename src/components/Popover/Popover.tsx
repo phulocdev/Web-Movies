@@ -31,7 +31,7 @@ export default function Popover({
   popoverContent,
   hasArrow = true,
   offsetWithPopover = 0,
-  arrowHeight = 20,
+  arrowHeight = 10,
   fillArrowColor = 'fill-white',
   triggerType = 'hover'
 }: Props) {

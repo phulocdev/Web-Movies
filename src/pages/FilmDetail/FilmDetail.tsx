@@ -1,11 +1,15 @@
 import { useQuery } from '@tanstack/react-query'
+import { pick } from 'lodash'
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import filmListApi from '~/apis/FilmList.api'
 import Banner from '~/components/Banner'
 import BannerSkeleton from '~/components/BannerSkeleton'
 import FilmDescSkeleton from '~/components/FilmDescSkeleton'
 import Label from '~/components/Label'
+import Film, { FilmFiltered } from '~/types/Film'
+import { saveFilmToFavouriteList } from '~/utils/utils'
 
 export default function FilmDetail() {
   const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState<number>(0)
@@ -20,6 +24,26 @@ export default function FilmDetail() {
   const handleEpisodeChange = (newEpisodeIndex: number) => () => {
     setCurrentEpisodeIndex(newEpisodeIndex)
   }
+
+  const handleSaveFilmFavourite = () => {
+    if (filmDetail?.movie !== '') {
+      const film = pick(filmDetail?.movie as Film, [
+        'slug',
+        'id',
+        'name',
+        'poster_url',
+        'year',
+        'quality',
+        'episode_current'
+      ])
+      saveFilmToFavouriteList({
+        ...(film as FilmFiltered),
+        poster_url: (film.poster_url as string).split('https://img.phimapi.com/')[1]
+      })
+    }
+    toast.success('Add film to favourite list success❣️')
+  }
+
   if (filmDetailData && !filmDetailData?.data.status) {
     return (
       <div className='flex min-h-screen items-center justify-center text-4xl font-semibold uppercase'>
@@ -39,7 +63,12 @@ export default function FilmDetail() {
         <div>
           {filmDetail?.movie && (
             <React.Fragment>
-              <Banner film={filmDetail.movie} quality={filmDetail.movie.quality} hasFavouriteButton />
+              <Banner
+                film={filmDetail.movie}
+                quality={filmDetail.movie.quality}
+                hasFavouriteButton
+                handleSaveFilmFavourite={handleSaveFilmFavourite}
+              />
               <section className='mt-5 flex flex-col gap-y-3 text-lg'>
                 <div>
                   <span className='text-lg text-[#ff9800]'>Nội dung</span>
@@ -91,7 +120,11 @@ export default function FilmDetail() {
                   allowFullScreen
                 ></iframe>
 
-                <div className='mt-2 text-xl'>{`${filmDetail.movie.name}: Tập ${currentEpisodeIndex + 1}`}</div>
+                {filmDetail.episodes.length > 1 ? (
+                  <div className='mt-2 text-xl'>{`${filmDetail.movie.name}: Tập ${currentEpisodeIndex + 1}`}</div>
+                ) : (
+                  <div className='mt-2 text-xl'>{`${filmDetail.movie.name}: Full`}</div>
+                )}
               </div>
 
               <div className='mt-8 flex flex-wrap items-center gap-x-2 gap-y-3'>
