@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import WrapperLoading from './components/WrapperLoading'
-import { setDefaultTheme } from './utils/utils'
+import { addClassNameButtonsSlider, setDefaultTheme } from './utils/utils'
 import { useEffect } from 'react'
 import AppContextProvider from './context/app.context'
 
@@ -22,6 +22,7 @@ function App() {
   // Set theme to website for first render
   useEffect(() => {
     setDefaultTheme()
+    addClassNameButtonsSlider()
   }, [])
   return (
     <QueryClientProvider client={queryClient}>

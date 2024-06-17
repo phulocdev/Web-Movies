@@ -29,12 +29,19 @@ export const addClassNameButtonsSlider = () => {
   const nextButtonSliderList = document.querySelectorAll('.swiper-button-next') as NodeListOf<HTMLElement>
 
   ;[...prevButtonSliderList, ...nextButtonSliderList].forEach((button) => {
-    button.classList.add('text-black', 'bg-white', 'dark:text-white', 'dark:bg-slate-900', 'hover:bg-slate-100')
+    button.classList.add(
+      'text-black',
+      'bg-white',
+      'dark:text-white',
+      'dark:bg-slate-900',
+      'hover:bg-slate-100',
+      'dark:hover:bg-slate-800'
+    )
   })
+  document.body.classList.add('dark:bg-slate-950', 'relative')
 }
 
 export const setDefaultTheme = () => {
-  document.body.classList.add('dark:bg-slate-950', 'relative')
   if (
     localStorage.theme === theme.dark ||
     (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)

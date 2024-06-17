@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useQuery } from '@tanstack/react-query'
 import filmListApi from '~/apis/FilmList.api'
 import { GiRainbowStar } from 'react-icons/gi'
@@ -11,7 +11,6 @@ import { QueryConfig } from '~/hooks/useQueryConfig'
 import path from '~/constants/path'
 import Carousel from '~/components/Carousel'
 import FilmList from '~/components/FilmList'
-import { addClassNameButtonsSlider } from '~/utils/utils'
 
 export default function Home() {
   const queryConfig: QueryConfig = { page: '1', limit: '30' }
@@ -40,10 +39,6 @@ export default function Home() {
     queryKey: ['tv_shows', { queryConfig }],
     queryFn: () => filmListApi.getFilmList('danh-sach', 'tv-shows', queryConfig)
   })
-
-  useEffect(() => {
-    addClassNameButtonsSlider()
-  }, [])
 
   return (
     <React.Fragment>

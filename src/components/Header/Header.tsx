@@ -204,7 +204,7 @@ export default function Header() {
             <Popover
               children={<SearchBar />}
               popoverContent={
-                <div className='min-h-12 rounded-sm bg-white p-3 shadow-md dark:bg-slate-800 dark:text-white'>
+                <div className='min-h-12 w-80 rounded-sm bg-white p-3 shadow-md dark:bg-slate-800 dark:text-white'>
                   {filmSearchSubList.length > 0 ? (
                     filmSearchSubList.map((film) => (
                       <Link
