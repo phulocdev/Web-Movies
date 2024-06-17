@@ -7,6 +7,8 @@ import { FilmHot } from '~/types/Film'
 import Banner from '../Banner'
 import BannerSkeleton from '../BannerSkeleton'
 import React from 'react'
+import { Link } from 'react-router-dom'
+import path from '~/constants/path'
 
 interface Props {
   filmList?: FilmHot[]
@@ -19,10 +21,10 @@ const Carousel = ({ filmList }: Props) => {
         navigation={true}
         slidesPerView={1}
         speed={1000}
-        autoplay={{
-          delay: 2000,
-          disableOnInteraction: false
-        }}
+        // autoplay={{
+        //   delay: 2000,
+        //   disableOnInteraction: false
+        // }}
         loop={true}
         modules={[Navigation, Pagination, Autoplay]}
         pagination={{
@@ -32,7 +34,9 @@ const Carousel = ({ filmList }: Props) => {
         {filmList ? (
           filmList.map((film) => (
             <SwiperSlide key={film._id}>
-              <Banner key={film._id} film={film} isNew />
+              <Link to={`${path.filmDetail}/${film.slug}`}>
+                <Banner key={film._id} film={film} isNew />
+              </Link>
             </SwiperSlide>
           ))
         ) : (

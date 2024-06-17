@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 import Footer from '~/components/Footer'
 import Header from '~/components/Header'
 
@@ -8,10 +8,10 @@ interface Props {
 
 export default function MainLayout({ children }: Props) {
   return (
-    <div>
+    <React.Fragment>
       <Header />
       <div className='container mb-5 mt-7 min-h-screen'>{children}</div>
       <Footer />
-    </div>
+    </React.Fragment>
   )
 }

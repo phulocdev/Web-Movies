@@ -30,7 +30,7 @@ export default function FilmCard({ film }: Props) {
             </span>
           )}
         </div>
-        <h2 className='absolute bottom-2 z-10 min-h-5 w-full text-center text-base font-semibold text-white'>
+        <h2 className='absolute bottom-2 z-10 line-clamp-2 min-h-5 w-full text-center text-base font-semibold text-white'>
           {film.name}
         </h2>
       </div>

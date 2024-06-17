@@ -17,12 +17,13 @@ const COUNT_FILM_DEFAULT = getQuantityOfFilms(window.innerWidth)
 
 const FilmList = ({ filmList }: Props) => {
   const [countFilm, setCountFilm] = useState<number>(COUNT_FILM_DEFAULT)
+
   useEffect(() => {
     window.addEventListener('resize', throttle(handleScreenWidthChange, 500))
     return () => {
       window.removeEventListener('resize', handleScreenWidthChange)
     }
-  })
+  }, [])
 
   const handleScreenWidthChange = () => {
     const screenWidth = document.body.clientWidth

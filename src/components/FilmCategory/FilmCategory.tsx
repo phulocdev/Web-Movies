@@ -11,7 +11,7 @@ interface Props {
 
 const FilmCategory = ({ Icon, content, path = '#!', isWatchAll = true }: Props) => {
   return (
-    <div className='mb-2 mt-6 flex items-center gap-x-1'>
+    <div className='mb-2 mt-6 flex items-center gap-x-1 dark:text-white'>
       {Icon}
       <h2 className='text-base font-medium uppercase'>{content}</h2>
       <div className='ml-auto flex items-center hover:text-[#ff9800]'>

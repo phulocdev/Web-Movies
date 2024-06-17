@@ -1,6 +1,5 @@
 import { IoPlayCircleSharp } from 'react-icons/io5'
 import { FilmHot } from '~/types/Film'
-import Label from '../Label'
 import classNames from 'classnames'
 
 interface Props {
@@ -49,13 +48,13 @@ export default function Banner({ film, isNew, quality, hasFavouriteButton, handl
 
       {isNew && (
         <div className='absolute bottom-10 left-44 z-20'>
-          <Label classNameColor='bg-pink-500' content={'New 🥳'} />
+          <span className='inline-block rounded-md bg-pink-500 px-3 py-2 text-[18px] text-white'>New 🥳</span>
         </div>
       )}
 
       {quality && (
         <div className='absolute bottom-10 left-44 z-20 cursor-default'>
-          <Label content={quality} />
+          <span className='inline-block rounded-md bg-blue-500 px-3 py-2 text-[18px] text-white'>{quality}</span>
         </div>
       )}
 

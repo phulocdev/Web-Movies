@@ -7,7 +7,6 @@ import filmListApi from '~/apis/FilmList.api'
 import Banner from '~/components/Banner'
 import BannerSkeleton from '~/components/BannerSkeleton'
 import FilmDescSkeleton from '~/components/FilmDescSkeleton'
-import Label from '~/components/Label'
 import Film, { FilmFiltered } from '~/types/Film'
 import { saveFilmToFavouriteList } from '~/utils/utils'
 
@@ -41,7 +40,10 @@ export default function FilmDetail() {
         poster_url: (film.poster_url as string).split('https://img.phimapi.com/')[1]
       })
     }
-    toast.success('Add film to favourite list success❣️')
+    toast.success('Add film to favourite list success❣️', {
+      position: 'bottom-right',
+      autoClose: 3000
+    })
   }
 
   if (filmDetailData && !filmDetailData?.data.status) {
@@ -72,11 +74,11 @@ export default function FilmDetail() {
               <section className='mt-5 flex flex-col gap-y-3 text-lg'>
                 <div>
                   <span className='text-lg text-[#ff9800]'>Nội dung</span>
-                  <p className='text-[17px] leading-normal'>{filmDetail.movie.content}</p>
+                  <p className='text-[17px] leading-normal dark:text-white'>{filmDetail.movie.content}</p>
                 </div>
                 <div>
                   <span className='text-lg text-[#ff9800]'>Quốc gia:</span>
-                  <span className='ml-2 text-[17px]'>
+                  <span className='ml-2 text-[17px] dark:text-white'>
                     {filmDetail.movie.country.map((country, index, countryArr) => {
                       if (index < countryArr.length - 1) return country.name + ', '
                       return country.name + '.'
@@ -85,7 +87,7 @@ export default function FilmDetail() {
                 </div>
                 <div>
                   <span className='text-lg text-[#ff9800]'>Thể loại:</span>
-                  <span className='ml-2 text-[17px]'>
+                  <span className='ml-2 text-[17px] dark:text-white'>
                     {filmDetail.movie.category.map((category, index, categoryArr) => {
                       if (index < categoryArr.length - 1) return category.name + ', '
                       return category.name + '.'
@@ -94,7 +96,7 @@ export default function FilmDetail() {
                 </div>
                 <div>
                   <span className='text-lg text-[#ff9800]'>Đạo diễn:</span>
-                  <span className='ml-2 text-[17px]'>
+                  <span className='ml-2 text-[17px] dark:text-white'>
                     {filmDetail.movie.director.map((name, index, nameArr) => {
                       if (index < nameArr.length - 1) return name + ', '
                       return name + '.'
@@ -103,7 +105,7 @@ export default function FilmDetail() {
                 </div>
                 <div>
                   <span className='text-lg text-[#ff9800]'>Diễn viên:</span>
-                  <span className='ml-2 text-[17px]'>
+                  <span className='ml-2 text-[17px] dark:text-white'>
                     {filmDetail.movie.actor.map((name, index, nameArr) => {
                       if (index < nameArr.length - 1) return name + ', '
                       return name + '.'
@@ -112,24 +114,24 @@ export default function FilmDetail() {
                 </div>
               </section>
 
-              <div className='mx-auto mt-16 w-[80%]'>
+              <div className='mx-auto mt-16 w-full md:w-[80%]'>
                 <iframe
                   src={filmDetailData?.data.episodes[0].server_data[currentEpisodeIndex].link_embed}
-                  className='aspect-[16/9] h-full w-full'
+                  className='aspect-[16/9] h-full w-full shadow-2xl shadow-slate-600'
                   title={filmDetail.movie.name}
                   allowFullScreen
                 ></iframe>
 
-                {filmDetail.episodes.length > 1 ? (
-                  <div className='mt-2 text-xl'>{`${filmDetail.movie.name}: Tập ${currentEpisodeIndex + 1}`}</div>
+                {filmDetail.episodes[0].server_data.length > 1 ? (
+                  <div className='mt-2 text-xl dark:text-white'>{`${filmDetail.movie.name}: Tập ${currentEpisodeIndex + 1}`}</div>
                 ) : (
-                  <div className='mt-2 text-xl'>{`${filmDetail.movie.name}: Full`}</div>
+                  <div className='mt-2 text-xl dark:text-white'>{`${filmDetail.movie.name}: Full`}</div>
                 )}
               </div>
 
               <div className='mt-8 flex flex-wrap items-center gap-x-2 gap-y-3'>
-                {filmDetail?.episodes[0].server_data.length === 1 ? (
-                  <Label content='Full' />
+                {filmDetail.episodes[0].server_data.length === 1 ? (
+                  <span className='inline-block rounded-md bg-blue-500 px-3 py-2 text-[18px] text-white'>Full</span>
                 ) : (
                   filmDetail?.episodes[0].server_data.map((item, index) => {
                     const activeClass =

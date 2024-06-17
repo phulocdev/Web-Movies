@@ -86,7 +86,7 @@ export default function Popover({
                 width={arrowHeight * 2}
                 height={arrowHeight}
                 style={{ top: `-${arrowHeight + offsetWithPopover - 1}px` }}
-                className={fillArrowColor}
+                className={`${fillArrowColor} dark:fill-slate-800`}
               />
             )}
           </div>

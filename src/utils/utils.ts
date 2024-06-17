@@ -1,3 +1,4 @@
+import { theme } from '~/constants/config'
 import { FilmFiltered } from '~/types/Film'
 
 export const getQuantityOfFilms = (width: number) => {
@@ -21,4 +22,34 @@ export const getFavouriteFilmList = (): FilmFiltered[] => JSON.parse(localStorag
 export const saveFilmToFavouriteList = (film: FilmFiltered) => {
   const oldFilmsFavouriteValue: FilmFiltered[] = getFavouriteFilmList()
   localStorage.setItem('films_favourite', JSON.stringify(oldFilmsFavouriteValue.concat([film])))
+}
+
+export const addClassNameButtonsSlider = () => {
+  const prevButtonSliderList = document.querySelectorAll('.swiper-button-prev') as NodeListOf<HTMLElement>
+  const nextButtonSliderList = document.querySelectorAll('.swiper-button-next') as NodeListOf<HTMLElement>
+
+  ;[...prevButtonSliderList, ...nextButtonSliderList].forEach((button) => {
+    button.classList.add('text-black', 'bg-white', 'dark:text-white', 'dark:bg-slate-900', 'hover:bg-slate-100')
+  })
+}
+
+export const setDefaultTheme = () => {
+  document.body.classList.add('dark:bg-slate-950', 'relative')
+  if (
+    localStorage.theme === theme.dark ||
+    (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  ) {
+    // documentElement is HTML node
+    document.documentElement.classList.add(theme.dark)
+  }
+}
+
+export const getCurrentTheme = () => {
+  if ('theme' in localStorage) {
+    return localStorage.theme
+  }
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    return theme.dark
+  }
+  return theme.light
 }
