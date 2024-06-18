@@ -48,7 +48,7 @@ export default function FilmDetail() {
 
   if (filmDetailData && !filmDetailData?.data.status) {
     return (
-      <div className='flex min-h-screen items-center justify-center text-4xl font-semibold uppercase'>
+      <div className='flex min-h-screen items-center justify-center text-xl font-semibold uppercase text-black sm:text-4xl dark:text-white'>
         Movie not found
       </div>
     )
@@ -71,14 +71,16 @@ export default function FilmDetail() {
                 hasFavouriteButton
                 handleSaveFilmFavourite={handleSaveFilmFavourite}
               />
-              <section className='mt-5 flex flex-col gap-y-3 text-lg'>
+              <section className='mt-5 flex flex-col gap-y-1 text-lg sm:gap-y-3'>
                 <div>
-                  <span className='text-lg text-[#ff9800]'>Nội dung</span>
-                  <p className='text-[17px] leading-normal dark:text-white'>{filmDetail.movie.content}</p>
+                  <span className='text-base text-[#ff9800] sm:text-lg'>Nội dung</span>
+                  <p className='text-[15px] leading-normal sm:text-[17px] dark:text-white'>
+                    {filmDetail.movie.content}
+                  </p>
                 </div>
                 <div>
-                  <span className='text-lg text-[#ff9800]'>Quốc gia:</span>
-                  <span className='ml-2 text-[17px] dark:text-white'>
+                  <span className='text-base text-[#ff9800] sm:text-lg'>Quốc gia:</span>
+                  <span className='ml-2 text-[15px] sm:text-[17px] dark:text-white'>
                     {filmDetail.movie.country.map((country, index, countryArr) => {
                       if (index < countryArr.length - 1) return country.name + ', '
                       return country.name + '.'
@@ -86,8 +88,8 @@ export default function FilmDetail() {
                   </span>
                 </div>
                 <div>
-                  <span className='text-lg text-[#ff9800]'>Thể loại:</span>
-                  <span className='ml-2 text-[17px] dark:text-white'>
+                  <span className='text-base text-[#ff9800] sm:text-lg'>Thể loại:</span>
+                  <span className='ml-2 text-[15px] sm:text-[17px] dark:text-white'>
                     {filmDetail.movie.category.map((category, index, categoryArr) => {
                       if (index < categoryArr.length - 1) return category.name + ', '
                       return category.name + '.'
@@ -95,8 +97,8 @@ export default function FilmDetail() {
                   </span>
                 </div>
                 <div>
-                  <span className='text-lg text-[#ff9800]'>Đạo diễn:</span>
-                  <span className='ml-2 text-[17px] dark:text-white'>
+                  <span className='text-base text-[#ff9800] sm:text-lg'>Đạo diễn:</span>
+                  <span className='ml-2 text-[15px] sm:text-[17px] dark:text-white'>
                     {filmDetail.movie.director.map((name, index, nameArr) => {
                       if (index < nameArr.length - 1) return name + ', '
                       return name + '.'
@@ -104,8 +106,8 @@ export default function FilmDetail() {
                   </span>
                 </div>
                 <div>
-                  <span className='text-lg text-[#ff9800]'>Diễn viên:</span>
-                  <span className='ml-2 text-[17px] dark:text-white'>
+                  <span className='text-base text-[#ff9800] sm:text-lg'>Diễn viên:</span>
+                  <span className='ml-2 text-[15px] sm:text-[17px] dark:text-white'>
                     {filmDetail.movie.actor.map((name, index, nameArr) => {
                       if (index < nameArr.length - 1) return name + ', '
                       return name + '.'
@@ -114,31 +116,33 @@ export default function FilmDetail() {
                 </div>
               </section>
 
-              <div className='mx-auto mt-16 w-full md:w-[80%]'>
+              <div className='mt-5 w-full sm:mt-10 md:mx-auto md:mt-16 md:w-[90%]'>
                 <iframe
                   src={filmDetailData?.data.episodes[0].server_data[currentEpisodeIndex].link_embed}
-                  className='aspect-[16/9] h-full w-full shadow-2xl shadow-slate-600'
+                  className='aspect-[16/9] w-full shadow-md shadow-slate-600 sm:shadow-2xl'
                   title={filmDetail.movie.name}
                   allowFullScreen
                 ></iframe>
 
                 {filmDetail.episodes[0].server_data.length > 1 ? (
-                  <div className='mt-2 text-xl dark:text-white'>{`${filmDetail.movie.name}: Tập ${currentEpisodeIndex + 1}`}</div>
+                  <div className='mt-2 text-lg sm:text-xl dark:text-white'>{`${filmDetail.movie.name}: Tập ${currentEpisodeIndex + 1}`}</div>
                 ) : (
-                  <div className='mt-2 text-xl dark:text-white'>{`${filmDetail.movie.name}: Full`}</div>
+                  <div className='mt-2 text-lg sm:text-xl dark:text-white'>{`${filmDetail.movie.name}: Full`}</div>
                 )}
               </div>
 
-              <div className='mt-8 flex flex-wrap items-center gap-x-2 gap-y-3'>
+              <div className='mt-5 flex flex-wrap items-center gap-x-1 gap-y-2 sm:mt-8 sm:gap-x-2 sm:gap-y-3'>
                 {filmDetail.episodes[0].server_data.length === 1 ? (
-                  <span className='inline-block rounded-md bg-blue-500 px-3 py-2 text-[18px] text-white'>Full</span>
+                  <span className='inline-block rounded-md bg-blue-500 p-2 text-base text-white sm:px-3 sm:py-2 sm:text-[18px]'>
+                    Full
+                  </span>
                 ) : (
                   filmDetail?.episodes[0].server_data.map((item, index) => {
                     const activeClass =
                       index === currentEpisodeIndex ? ' text-white bg-orange-400 ' : ' bg-white text-black '
                     return (
                       <button
-                        className={`rounded-md border-[1.5px] border-orange-400 px-2 py-1 text-[15px] transition-all hover:bg-orange-400 hover:text-white ${activeClass}`}
+                        className={`rounded-md border-[1.5px] border-orange-400 px-2 py-1 text-sm transition-all hover:bg-orange-400 hover:text-white sm:text-[15px] ${activeClass}`}
                         onClick={handleEpisodeChange(index)}
                       >
                         {item.name}

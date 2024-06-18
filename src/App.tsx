@@ -7,6 +7,7 @@ import WrapperLoading from './components/WrapperLoading'
 import { addClassNameButtonsSlider, setDefaultTheme } from './utils/utils'
 import { useEffect } from 'react'
 import AppContextProvider from './context/app.context'
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,8 +28,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AppContextProvider>
-        {routeElements}
-        <ToastContainer />
+        <ErrorBoundary>
+          {routeElements}
+          <ToastContainer />
+        </ErrorBoundary>
       </AppContextProvider>
       <WrapperLoading />
       <ReactQueryDevtools initialIsOpen={false} />

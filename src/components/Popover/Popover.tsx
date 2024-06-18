@@ -57,6 +57,8 @@ export default function Popover({
   const click = useClick(context, {
     enabled: triggerType === 'click'
   })
+  // const hover = useHover(context)
+  // const click = useClick(context)
   const dismiss = useDismiss(context)
   const role = useRole(context)
   const { getReferenceProps, getFloatingProps } = useInteractions([hover, dismiss, role, click])
@@ -76,7 +78,7 @@ export default function Popover({
             {...getFloatingProps()}
             // -mt và pt làm cho popover content arrow được sát gần lại với children hơn
             // do đó làm mất đi khoảng cách giữa children và popover conent
-            className='outline-none'
+            className='z-[201] outline-none'
           >
             {popoverContent}
             {hasArrow && (

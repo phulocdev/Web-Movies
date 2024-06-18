@@ -89,23 +89,23 @@ const SearchBar = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} autoComplete='off' className='mr-7 flex items-center gap-x-1'>
+    <form onSubmit={handleSubmit} autoComplete='off' className='flex items-center gap-x-1 lg:mr-7'>
       <input
         type='text'
         name='keyword'
         value={keyword}
         ref={inputRef}
         placeholder='Tìm kiếm...'
-        className='grow rounded-lg border border-gray-200 px-4 py-2 shadow-sm outline-none transition-all placeholder:text-black focus:border-gray-300 focus:shadow-md dark:border-slate-900 dark:bg-slate-800 dark:text-white dark:placeholder:text-white dark:focus:border-white'
+        className='grow rounded-lg border border-gray-200 px-3 py-2 text-sm shadow-sm outline-none transition-all placeholder:text-black focus:border-gray-300 focus:shadow-md sm:px-4 sm:py-2 sm:text-base dark:border-slate-900 dark:bg-slate-800 dark:text-white dark:placeholder:text-white dark:focus:border-white'
         onChange={handleInputChange}
         onClick={handleInputClick}
         onKeyDown={handleKeyDown}
       />
       <button
         type='submit'
-        className='shrink-0 rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-slate-900 dark:bg-slate-800 dark:text-white dark:placeholder:text-white dark:focus:border-white'
+        className='shrink-0 rounded-lg border border-gray-200 bg-white p-2 py-[10px] sm:px-4 sm:py-3 dark:border-slate-900 dark:bg-slate-800 dark:text-white dark:placeholder:text-white dark:focus:border-white'
       >
-        <BiSearch size={18} />
+        <BiSearch className='text-[17px] sm:text-lg' />
       </button>
     </form>
   )

@@ -1,8 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Navigation, Pagination } from 'swiper/modules'
+import { Autoplay, Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
-import 'swiper/css/pagination'
 import { FilmHot } from '~/types/Film'
 import Banner from '../Banner'
 import BannerSkeleton from '../BannerSkeleton'
@@ -21,12 +20,12 @@ const Carousel = ({ filmList }: Props) => {
         navigation={true}
         slidesPerView={1}
         speed={1000}
-        // autoplay={{
-        //   delay: 2000,
-        //   disableOnInteraction: false
-        // }}
+        autoplay={{
+          delay: 2000,
+          disableOnInteraction: false
+        }}
         loop={true}
-        modules={[Navigation, Pagination, Autoplay]}
+        modules={[Navigation, Autoplay]}
         pagination={{
           clickable: true
         }}

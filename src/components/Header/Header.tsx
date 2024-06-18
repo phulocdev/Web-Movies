@@ -87,11 +87,11 @@ export default function Header() {
   return (
     <div className='bg-neutral-50 py-4 lg:sticky lg:top-0 lg:z-40 dark:bg-slate-900'>
       <div className='container'>
-        <div className='relative z-[210] lg:hidden'>
-          <IoMenu size={30} className='text-black dark:text-white' onClick={handleToggleSubMenu} />
+        <div className='relative z-[201] lg:hidden'>
+          <IoMenu size={30} className='cursor-pointer text-black dark:text-white' onClick={handleToggleSubMenu} />
         </div>
         <div className='grid grid-cols-12 items-center gap-x-4'>
-          <div id='wrapperLogo' className='h-11] z-[210] col-span-1 mt-3 w-24 lg:static lg:mt-0'>
+          <div id='wrapperLogo' className='h-11] z-[201] col-span-1 mt-3 hidden w-24 lg:static lg:mt-0 lg:block'>
             <Link to={path.home} className='border-none outline-none'>
               <div className='relative lg:aspect-[3.2/1]'>
                 <img
@@ -105,7 +105,7 @@ export default function Header() {
           </div>
           <div
             ref={subMenuRef}
-            className='absolute bottom-0 left-0 right-[20%] top-0 z-[200] col-span-7 bg-white sm:right-[50%] lg:static lg:bg-transparent'
+            className='absolute bottom-0 left-0 right-0 top-0 z-[200] col-span-7 hidden bg-white text-black sm:right-[50%] lg:static lg:block lg:bg-transparent dark:bg-slate-900 dark:text-white'
           >
             <nav>
               <ul className='mt-24 flex flex-col pl-2 lg:mt-0 lg:flex-row lg:items-center lg:pl-0'>
@@ -200,7 +200,7 @@ export default function Header() {
               </ul>
             </nav>
           </div>
-          <div className='col-span-5 mt-3 lg:col-span-3 lg:mt-0'>
+          <div className='col-span-12 mt-3 sm:col-span-5 lg:col-span-3 lg:mt-0'>
             <Popover
               children={<SearchBar />}
               popoverContent={
@@ -238,7 +238,7 @@ export default function Header() {
               triggerType='click'
             />
           </div>
-          <div className=''>
+          <div className='absolute right-4 top-4 z-[201] sm:right-6 sm:top-8 lg:static lg:col-span-1 lg:mt-0'>
             <Popover
               children={
                 <div className='flex justify-end'>
@@ -250,7 +250,7 @@ export default function Header() {
                 </div>
               }
               popoverContent={
-                <div className='flex w-40 flex-col gap-x-1 rounded-sm bg-white p-2 shadow-md dark:bg-slate-800 dark:shadow-none'>
+                <div className='mr-4 flex w-40 flex-col gap-x-1 rounded-sm bg-white p-2 shadow-md lg:mr-0 dark:bg-slate-800 dark:shadow-none'>
                   <button
                     onClick={() => handleChangeTheme(theme.dark)}
                     className='flex items-center gap-x-2 border-none p-2 text-left text-black outline-none hover:bg-slate-100 dark:text-white dark:hover:bg-slate-900'

@@ -12,7 +12,7 @@ export default function FilmFilter() {
   const location = useLocation()
   const { typeCategory, categorySlug } = useParams()
 
-  const { data: filmFilteredData } = useQuery({
+  const { data: filmFilteredData, isError } = useQuery({
     queryKey: ['film_filtered', { typeCategory, categorySlug, queryConfig }],
     queryFn: () =>
       filmListApi.getFilmList(typeCategory as string, categorySlug as string, {
@@ -24,10 +24,14 @@ export default function FilmFilter() {
   const filmFilteredList = filmFilteredData?.data.data.items
   const titlePage = filmFilteredData?.data.data.titlePage
 
+  if (isError) {
+    throw new Error('Film detail cannot find')
+  }
+
   if (!filmFilteredList) return null
   return (
     <div>
-      <h2 className='text-xl font-medium uppercase'>{`Danh sách tất cả ${isDontNeedFilmText((titlePage as string).toLocaleLowerCase()) ? '' : 'phim'} ${titlePage}`}</h2>
+      <h2 className='text-lg font-medium uppercase sm:text-xl'>{`Danh sách tất cả ${isDontNeedFilmText((titlePage as string).toLocaleLowerCase()) ? '' : 'phim'} ${titlePage}`}</h2>
       <div className='-ml-4 mt-5 flex flex-wrap gap-y-5'>
         {filmFilteredList?.map((film) => (
           <div
@@ -38,7 +42,7 @@ export default function FilmFilter() {
           </div>
         ))}
       </div>
-      <div className='mt-7'>
+      <div className='mt-5 sm:mt-7'>
         <Pagination
           pageSize={filmFilteredData.data.data.params.pagination.totalPages}
           path={location.pathname}

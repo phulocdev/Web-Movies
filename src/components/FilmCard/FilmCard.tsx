@@ -19,7 +19,7 @@ export default function FilmCard({ film }: Props) {
         />
         <div className='bg-gradient absolute inset-0 z-10'></div>
         {/* Decoration */}
-        <div className='absolute left-1 top-1 z-20 flex items-center gap-x-[3px]'>
+        <div className='absolute left-1 top-1 z-20 flex flex-wrap items-center gap-1 gap-x-[3px]'>
           {film.year && <span className='rounded-md bg-black/55 px-2 py-1 text-[12px] text-gray-200'>{film.year}</span>}
           {film.quality && (
             <span className='rounded-md bg-black/55 px-2 py-1 text-[12px] text-gray-200'>{film.quality}</span>
@@ -30,7 +30,7 @@ export default function FilmCard({ film }: Props) {
             </span>
           )}
         </div>
-        <h2 className='absolute bottom-2 z-10 line-clamp-2 min-h-5 w-full text-center text-base font-semibold text-white'>
+        <h2 className='absolute bottom-2 left-1 right-1 z-10 line-clamp-2 text-center text-sm font-semibold text-white sm:text-base'>
           {film.name}
         </h2>
       </div>

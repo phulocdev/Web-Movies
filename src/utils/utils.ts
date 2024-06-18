@@ -31,11 +31,21 @@ export const addClassNameButtonsSlider = () => {
   ;[...prevButtonSliderList, ...nextButtonSliderList].forEach((button) => {
     button.classList.add(
       'text-black',
+      'text-center',
+      'flex',
+      'items-center',
       'bg-white',
       'dark:text-white',
       'dark:bg-slate-900',
       'hover:bg-slate-100',
-      'dark:hover:bg-slate-800'
+      'dark:hover:bg-slate-800',
+      'rounded-full',
+      'md:w-12',
+      'md:h-12',
+      'w-10',
+      'h-10',
+      'sm:flex',
+      'hidden'
     )
   })
   document.body.classList.add('dark:bg-slate-950', 'relative')

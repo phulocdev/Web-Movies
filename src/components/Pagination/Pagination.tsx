@@ -22,7 +22,10 @@ export default function Pagination({ pageSize, queryConfig, path }: Props) {
       if (!dotBefore) {
         dotBefore = true
         return (
-          <span key={index} className='text-gray-black mx-2 cursor-default bg-white text-lg'>
+          <span
+            key={index}
+            className='text-gray-black mx-1 cursor-default bg-white text-base sm:text-lg dark:text-white'
+          >
             ...
           </span>
         )
@@ -36,9 +39,9 @@ export default function Pagination({ pageSize, queryConfig, path }: Props) {
         return (
           <span
             key={index}
-            className='text-gray-black mx-1 cursor-default bg-white text-lg font-medium dark:bg-slate-950 dark:text-white'
+            className='text-gray-black mx-1 cursor-default bg-white text-base font-medium sm:text-lg dark:bg-slate-950 dark:text-white'
           >
-            . . .
+            ...
           </span>
         )
       }
@@ -71,7 +74,7 @@ export default function Pagination({ pageSize, queryConfig, path }: Props) {
             }}
             key={index}
             className={classNames(
-              'flex h-11 min-w-10 items-center justify-center rounded-sm border-[1.5px] border-orange-400 px-2 text-[15px] shadow-sm transition-all hover:bg-orange-400 hover:text-white hover:opacity-90 dark:text-white',
+              'flex h-9 min-w-10 items-center justify-center rounded-sm border-[1.5px] border-orange-400 px-1 text-sm shadow-sm transition-all hover:bg-orange-400 hover:text-white hover:opacity-90 sm:h-11 sm:px-2 sm:text-[15px] dark:text-white',
               {
                 'bg-orange-400 text-white': isActive,
                 'bg-white-400 text-black': !isActive
@@ -85,10 +88,10 @@ export default function Pagination({ pageSize, queryConfig, path }: Props) {
   }
 
   return (
-    <div className='flex items-end justify-center gap-x-3'>
+    <div className='flex items-end justify-center gap-x-1 sm:gap-x-3'>
       {/* Previous Button */}
       {page === 1 ? (
-        <span className='bg-white-400 flex h-11 min-w-10 cursor-not-allowed items-center justify-center rounded-sm border-[1.5px] border-orange-400 px-2 text-[15px] text-black shadow-sm dark:text-white'>
+        <span className='bg-white-400 sn:text-[15px] flex h-9 min-w-10 cursor-not-allowed items-center justify-center rounded-sm border-[1.5px] border-orange-400 px-1 text-sm text-black shadow-sm sm:h-11 sm:px-2 dark:text-white'>
           Prev
         </span>
       ) : (
@@ -97,7 +100,7 @@ export default function Pagination({ pageSize, queryConfig, path }: Props) {
             pathname: path,
             search: createSearchParams({ ...queryConfig, page: (page - 1).toString() }).toString()
           }}
-          className='bg-white-400 flex h-11 min-w-10 items-center justify-center rounded-sm border-[1.5px] border-orange-400 px-2 text-[15px] text-black shadow-sm transition-all hover:bg-orange-400 hover:text-white hover:opacity-90 dark:text-white'
+          className='bg-white-400 flex h-9 min-w-10 items-center justify-center rounded-sm border-[1.5px] border-orange-400 px-1 text-sm text-black shadow-sm transition-all hover:bg-orange-400 hover:text-white hover:opacity-90 sm:h-11 sm:px-2 sm:text-[15px] dark:text-white'
         >
           Prev
         </Link>
@@ -107,7 +110,7 @@ export default function Pagination({ pageSize, queryConfig, path }: Props) {
 
       {/* Next Button */}
       {page === pageSize ? (
-        <span className='bg-white-400 flex h-11 min-w-10 cursor-not-allowed items-center justify-center rounded-sm border-[1.5px] border-orange-400 px-2 text-[15px] text-black shadow-sm dark:text-white'>
+        <span className='bg-white-400 sn:text-[15px] flex h-9 min-w-10 cursor-not-allowed items-center justify-center rounded-sm border-[1.5px] border-orange-400 px-1 text-sm text-black shadow-sm sm:h-11 sm:px-2 dark:text-white'>
           Next
         </span>
       ) : (
@@ -119,7 +122,7 @@ export default function Pagination({ pageSize, queryConfig, path }: Props) {
               page: (page + 1).toString()
             }).toString()
           }}
-          className='bg-white-400 flex h-11 min-w-10 items-center justify-center rounded-sm border-[1.5px] border-orange-400 px-2 text-[15px] text-black shadow-sm transition-all hover:bg-orange-400 hover:text-white hover:opacity-90 dark:text-white'
+          className='bg-white-400 flex h-9 min-w-10 items-center justify-center rounded-sm border-[1.5px] border-orange-400 px-1 text-sm text-black shadow-sm transition-all hover:bg-orange-400 hover:text-white hover:opacity-90 sm:h-11 sm:px-2 sm:text-[15px] dark:text-white'
         >
           Next
         </Link>
