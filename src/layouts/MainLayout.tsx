@@ -10,7 +10,7 @@ export default function MainLayout({ children }: Props) {
   return (
     <React.Fragment>
       <Header />
-      <div className='container mb-5 mt-7 min-h-screen'>{children}</div>
+      <div className='container mb-10 mt-7 min-h-screen'>{children}</div>
       <Footer />
     </React.Fragment>
   )

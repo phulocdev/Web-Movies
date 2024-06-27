@@ -80,8 +80,7 @@ const SearchBar = () => {
       })
       return
     }
-    inputRef.current?.click()
-
+    setKeyword('')
     navigate({
       pathname: path.search,
       search: createSearchParams({ keyword }).toString()

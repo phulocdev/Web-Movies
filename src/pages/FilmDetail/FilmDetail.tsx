@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { pick } from 'lodash'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import filmListApi from '~/apis/FilmList.api'
@@ -19,6 +19,10 @@ export default function FilmDetail() {
     queryFn: () => filmListApi.getFilmDetail(nameSlug as string)
   })
   const filmDetail = filmDetailData?.data
+
+  useEffect(() => {
+    setCurrentEpisodeIndex(0)
+  }, [nameSlug])
 
   const handleEpisodeChange = (newEpisodeIndex: number) => () => {
     setCurrentEpisodeIndex(newEpisodeIndex)
@@ -48,7 +52,7 @@ export default function FilmDetail() {
 
   if (filmDetailData && !filmDetailData?.data.status) {
     return (
-      <div className='flex min-h-screen items-center justify-center text-xl font-semibold uppercase text-black sm:text-4xl dark:text-white'>
+      <div className='flex min-h-screen items-center justify-center text-2xl font-semibold uppercase text-black sm:text-4xl dark:text-white'>
         Movie not found
       </div>
     )
@@ -142,6 +146,7 @@ export default function FilmDetail() {
                       index === currentEpisodeIndex ? ' text-white bg-orange-400 ' : ' bg-white text-black '
                     return (
                       <button
+                        key={index}
                         className={`rounded-md border-[1.5px] border-orange-400 px-2 py-1 text-sm transition-all hover:bg-orange-400 hover:text-white sm:text-[15px] ${activeClass}`}
                         onClick={handleEpisodeChange(index)}
                       >

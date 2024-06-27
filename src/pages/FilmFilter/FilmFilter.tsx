@@ -21,8 +21,11 @@ export default function FilmFilter() {
       }),
     placeholderData: keepPreviousData
   })
+
   const filmFilteredList = filmFilteredData?.data.data.items
   const titlePage = filmFilteredData?.data.data.titlePage
+
+  console.log(titlePage)
 
   if (isError) {
     throw new Error('Film detail cannot find')
@@ -31,7 +34,7 @@ export default function FilmFilter() {
   if (!filmFilteredList) return null
   return (
     <div>
-      <h2 className='text-lg font-medium uppercase sm:text-xl'>{`Danh sách tất cả ${isDontNeedFilmText((titlePage as string).toLocaleLowerCase()) ? '' : 'phim'} ${titlePage}`}</h2>
+      <h2 className='text-lg font-medium uppercase sm:text-xl dark:text-white'>{`Danh sách tất cả ${isDontNeedFilmText((titlePage as string).toLocaleLowerCase()) ? '' : 'phim'} ${titlePage}`}</h2>
       <div className='-ml-4 mt-5 flex flex-wrap gap-y-5'>
         {filmFilteredList?.map((film) => (
           <div

@@ -48,10 +48,10 @@ export const addClassNameButtonsSlider = () => {
       'hidden'
     )
   })
-  document.body.classList.add('dark:bg-slate-950', 'relative')
 }
 
 export const setDefaultTheme = () => {
+  document.body.classList.add('dark:bg-slate-950', 'relative')
   if (
     localStorage.theme === theme.dark ||
     (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)

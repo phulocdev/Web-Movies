@@ -15,9 +15,10 @@ import { MdDarkMode, MdLightMode } from 'react-icons/md'
 import { HiComputerDesktop } from 'react-icons/hi2'
 import { theme } from '~/constants/config'
 import { AppContext } from '~/context/app.context'
+import classNames from 'classnames'
 
 export default function Header() {
-  const { theme: currentTheme, setTheme } = useContext(AppContext)
+  const { theme: currentTheme, setTheme, openMenu, setOpenMenu } = useContext(AppContext)
   const [filmSearchSubList, setFilmSearchSubList] = useState<FilmFiltered[]>([])
   const queryClient = useQueryClient()
   const subMenuRef = useRef<HTMLDivElement>(null)
@@ -75,23 +76,25 @@ export default function Header() {
 
   const handleToggleSubMenu = () => {
     if (!subMenuRef.current) return
-    if (subMenuRef.current?.classList.contains('hidden')) {
-      subMenuRef.current?.classList.remove('hidden')
-      document.getElementById('wrapperLogo')?.classList.remove('hidden')
-    } else {
-      subMenuRef.current?.classList.add('hidden')
-      document.getElementById('wrapperLogo')?.classList.add('hidden')
-    }
+    setOpenMenu(!openMenu)
   }
 
   return (
     <div className='bg-neutral-50 py-4 lg:sticky lg:top-0 lg:z-40 dark:bg-slate-900'>
       <div className='container'>
-        <div className='relative z-[201] lg:hidden'>
+        <div className='relative z-[250] inline-block lg:hidden'>
           <IoMenu size={30} className='cursor-pointer text-black dark:text-white' onClick={handleToggleSubMenu} />
         </div>
+        {openMenu && (
+          <div
+            onClick={() => setOpenMenu(!openMenu)}
+            className='overlap fixed inset-0 z-[200] cursor-pointer bg-black/70'
+          ></div>
+        )}
         <div className='grid grid-cols-12 items-center gap-x-4'>
-          <div id='wrapperLogo' className='h-11] z-[201] col-span-1 mt-3 hidden w-24 lg:static lg:mt-0 lg:block'>
+          <div
+            className={`z-[201] col-span-1 mt-3 h-11 w-24 transition-opacity duration-300 lg:mt-0 ${window.innerWidth < 1024 ? (openMenu ? 'block opacity-100' : 'hidden opacity-0') : ''} lg:block lg:h-8`}
+          >
             <Link to={path.home} className='border-none outline-none'>
               <div className='relative lg:aspect-[3.2/1]'>
                 <img
@@ -105,7 +108,13 @@ export default function Header() {
           </div>
           <div
             ref={subMenuRef}
-            className='absolute bottom-0 left-0 right-0 top-0 z-[200] col-span-7 hidden bg-white text-black sm:right-[50%] lg:static lg:block lg:bg-transparent dark:bg-slate-900 dark:text-white'
+            className={classNames(
+              'absolute bottom-0 left-0 right-0 top-0 z-[200] col-span-7 bg-white text-black transition-transform duration-200 sm:right-[50%] lg:static lg:block lg:translate-x-0 lg:bg-transparent dark:bg-slate-900 dark:text-white',
+              {
+                'translate-x-0': openMenu,
+                '-translate-x-[100%]': !openMenu
+              }
+            )}
           >
             <nav>
               <ul className='mt-24 flex flex-col pl-2 lg:mt-0 lg:flex-row lg:items-center lg:pl-0'>
@@ -113,8 +122,8 @@ export default function Header() {
                   <NavLink
                     to={path.home}
                     className={({ isActive }) => {
-                      const activeClass = isActive ? 'text-[#ff9800]' : ''
-                      return `block px-2 py-2 text-base font-semibold transition-all lg:hover:text-[#ff9800] xl:px-3 ${activeClass} dark:text-white`
+                      const activeClass = isActive ? 'text-[#ff9800] dark:text-[#ff9800]' : ''
+                      return `block px-2 py-2 text-base font-semibold transition-all lg:hover:text-[#ff9800] xl:px-3 dark:text-white ${activeClass}`
                     }}
                   >
                     Trang chủ
@@ -168,8 +177,9 @@ export default function Header() {
                   <NavLink
                     to={path.filmSingle}
                     className={({ isActive }) => {
-                      const activeClass = isActive ? 'text-[#ff9800]' : ''
-                      return `block px-2 py-2 text-base font-semibold transition-all lg:hover:text-[#ff9800] xl:px-3 ${activeClass} dark:text-white`
+                      console.log(isActive)
+                      const activeClass = isActive ? 'text-[#ff9800] dark:text-[#ff9800]' : 'text-black dark:text-white'
+                      return `block px-2 py-2 text-base font-semibold transition-all lg:hover:text-[#ff9800] xl:px-3 ${activeClass}`
                     }}
                   >
                     Phim lẻ
@@ -179,8 +189,8 @@ export default function Header() {
                   <NavLink
                     to={path.filmSeries}
                     className={({ isActive }) => {
-                      const activeClass = isActive ? 'text-[#ff9800]' : ''
-                      return `block px-2 py-2 text-base font-semibold transition-all lg:hover:text-[#ff9800] xl:px-3 ${activeClass} dark:text-white`
+                      const activeClass = isActive ? 'text-[#ff9800] dark:text-[#ff9800]' : 'text-black dark:text-white'
+                      return `block px-2 py-2 text-base font-semibold transition-all lg:hover:text-[#ff9800] xl:px-3 ${activeClass}`
                     }}
                   >
                     Phim bộ
@@ -190,8 +200,8 @@ export default function Header() {
                   <NavLink
                     to={path.filmFavourite}
                     className={({ isActive }) => {
-                      const activeClass = isActive ? 'text-[#ff9800]' : ''
-                      return `block px-2 py-2 text-base font-semibold transition-all lg:hover:text-[#ff9800] xl:px-3 ${activeClass} dark:text-white`
+                      const activeClass = isActive ? 'text-[#ff9800] dark:text-[#ff9800]' : 'text-black dark:text-white'
+                      return `block px-2 py-2 text-base font-semibold transition-all lg:hover:text-[#ff9800] xl:px-3 ${activeClass}`
                     }}
                   >
                     Phim yêu thích
@@ -204,13 +214,13 @@ export default function Header() {
             <Popover
               children={<SearchBar />}
               popoverContent={
-                <div className='min-h-12 w-80 rounded-sm bg-white p-3 shadow-md dark:bg-slate-800 dark:text-white'>
+                <div className='min-h-12 w-96 rounded-sm bg-white p-3 shadow-md sm:w-[310px] dark:bg-slate-800 dark:text-white'>
                   {filmSearchSubList.length > 0 ? (
                     filmSearchSubList.map((film) => (
                       <Link
                         key={film._id}
                         to={`${path.filmDetail}/${film.slug}`}
-                        className='flex flex-col gap-x-2 p-1 transition-colors duration-150 hover:bg-neutral-100'
+                        className='flex flex-col gap-x-2 p-1 transition-colors duration-150 hover:bg-neutral-100 dark:hover:bg-slate-700'
                       >
                         <article className='flex items-center gap-x-2'>
                           <div className='relative aspect-[1/1] shrink-0 grow-0 basis-1/6 rounded-sm'>
@@ -238,7 +248,7 @@ export default function Header() {
               triggerType='click'
             />
           </div>
-          <div className='absolute right-4 top-4 z-[201] sm:right-6 sm:top-8 lg:static lg:col-span-1 lg:mt-0'>
+          <div className='absolute right-4 top-4 z-[190] inline-block sm:right-6 sm:top-8 lg:static lg:col-span-1 lg:mt-0'>
             <Popover
               children={
                 <div className='flex justify-end'>

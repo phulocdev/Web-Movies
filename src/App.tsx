@@ -4,10 +4,11 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import WrapperLoading from './components/WrapperLoading'
-import { addClassNameButtonsSlider, setDefaultTheme } from './utils/utils'
-import { useEffect } from 'react'
 import AppContextProvider from './context/app.context'
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
+import { useEffect } from 'react'
+import { setDefaultTheme } from './utils/utils'
+import ScrollToTop from './components/ScrollToTop/ScrollToTop'
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,10 +21,9 @@ export const queryClient = new QueryClient({
 
 function App() {
   const routeElements = useRouteElements()
-  // Set theme to website for first render
+
   useEffect(() => {
     setDefaultTheme()
-    addClassNameButtonsSlider()
   }, [])
   return (
     <QueryClientProvider client={queryClient}>
@@ -32,6 +32,7 @@ function App() {
           {routeElements}
           <ToastContainer />
         </ErrorBoundary>
+        <ScrollToTop />
       </AppContextProvider>
       <WrapperLoading />
       <ReactQueryDevtools initialIsOpen={false} />
