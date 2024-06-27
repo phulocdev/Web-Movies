@@ -14,13 +14,13 @@ export default function Footer() {
           <span className='text-lg sm:text-xl'>Information</span>
           <div className='text-sm sm:text-base'>Pham Phu Loc</div>
           <div className='mt-5 flex items-center gap-x-2 text-lg sm:text-2xl'>
-            <Link to='#!'>
+            <Link to='https://www.facebook.com/profile.php?id=100009479606442'>
               <FaFacebook className='transition-colors hover:text-orange-400' />
             </Link>
             <Link to='#!'>
               <FaGithub className='transition-colors hover:text-orange-400' />
             </Link>
-            <Link to='#!'>
+            <Link to='https://www.instagram.com/phu10c/'>
               <TiSocialInstagram className='transition-colors hover:text-orange-400' />
             </Link>
           </div>
