@@ -12,6 +12,7 @@ import path from '~/constants/path'
 import Carousel from '~/components/Carousel'
 import FilmList from '~/components/FilmList'
 import { addClassNameButtonsSlider } from '~/utils/utils'
+import { Helmet } from 'react-helmet-async'
 
 export default function Home() {
   const queryConfig: QueryConfig = { page: '1', limit: '30' }
@@ -48,6 +49,10 @@ export default function Home() {
 
   return (
     <React.Fragment>
+      <Helmet>
+        <title>Trang chủ | PL</title>
+      </Helmet>
+
       <FilmCategory
         Icon={<GiRainbowStar size={36} color='#00b0ff' />}
         content={'Phim mới cập nhật'}

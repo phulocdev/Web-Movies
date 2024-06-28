@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { pick } from 'lodash'
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import filmListApi from '~/apis/FilmList.api'
@@ -52,9 +53,14 @@ export default function FilmDetail() {
 
   if (filmDetailData && !filmDetailData?.data.status) {
     return (
-      <div className='flex min-h-screen items-center justify-center text-2xl font-semibold uppercase text-black sm:text-4xl dark:text-white'>
-        Movie not found
-      </div>
+      <Fragment>
+        <Helmet>
+          <title>Film not found | PL</title>
+        </Helmet>
+        <div className='flex min-h-screen items-center justify-center text-2xl font-semibold uppercase text-black sm:text-4xl dark:text-white'>
+          Movie not found
+        </div>
+      </Fragment>
     )
     // throw new Error('Movie not found')
   }
@@ -69,6 +75,9 @@ export default function FilmDetail() {
         <div>
           {filmDetail?.movie && (
             <React.Fragment>
+              <Helmet>
+                <title>{filmDetail.movie.name} | PL</title>
+              </Helmet>
               <Banner
                 film={filmDetail.movie}
                 quality={filmDetail.movie.quality}

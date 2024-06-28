@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async'
 import FilmCard from '~/components/FilmCard'
 import { getFavouriteFilmList } from '~/utils/utils'
 
@@ -5,6 +6,10 @@ export default function FilmFavourite() {
   const favouriteFilmList = getFavouriteFilmList()
   return (
     <div>
+      <Helmet>
+        <title>Phim yêu thích | PL</title>
+      </Helmet>
+
       <h1 className='text-xl font-medium uppercase'>Danh sách phim yêu thích</h1>
       {favouriteFilmList.length === 0 ? (
         <div className='flex min-h-[100vh] items-center justify-center text-2xl'>Empty List</div>

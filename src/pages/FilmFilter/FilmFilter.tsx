@@ -5,6 +5,7 @@ import useQueryConfig from '~/hooks/useQueryConfig'
 import FilmCard from '~/components/FilmCard'
 import { isDontNeedFilmText } from '~/utils/utils'
 import Pagination from '~/components/Pagination'
+import { Helmet } from 'react-helmet-async'
 
 const LIMIT_FILM_PER_PAGE = 42
 export default function FilmFilter() {
@@ -34,6 +35,9 @@ export default function FilmFilter() {
   if (!filmFilteredList) return null
   return (
     <div>
+      <Helmet>
+        <title>{titlePage} | PL</title>
+      </Helmet>
       <h2 className='text-lg font-medium uppercase sm:text-xl dark:text-white'>{`Danh sách tất cả ${isDontNeedFilmText((titlePage as string).toLocaleLowerCase()) ? '' : 'phim'} ${titlePage}`}</h2>
       <div className='-ml-4 mt-5 flex flex-wrap gap-y-5'>
         {filmFilteredList?.map((film) => (

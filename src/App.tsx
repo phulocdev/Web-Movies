@@ -9,6 +9,7 @@ import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
 import { useEffect } from 'react'
 import { setDefaultTheme } from './utils/utils'
 import ScrollToTop from './components/ScrollToTop/ScrollToTop'
+import { HelmetProvider } from 'react-helmet-async'
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,6 +20,8 @@ export const queryClient = new QueryClient({
   }
 })
 
+const helmetContext = {}
+
 function App() {
   const routeElements = useRouteElements()
 
@@ -26,17 +29,19 @@ function App() {
     setDefaultTheme()
   }, [])
   return (
-    <QueryClientProvider client={queryClient}>
-      <AppContextProvider>
-        <ErrorBoundary>
-          {routeElements}
-          <ToastContainer />
-        </ErrorBoundary>
-        <ScrollToTop />
-      </AppContextProvider>
-      <WrapperLoading />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <HelmetProvider context={helmetContext}>
+      <QueryClientProvider client={queryClient}>
+        <AppContextProvider>
+          <ErrorBoundary>
+            {routeElements}
+            <ToastContainer />
+          </ErrorBoundary>
+          <ScrollToTop />
+        </AppContextProvider>
+        <WrapperLoading />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </HelmetProvider>
   )
 }
 
